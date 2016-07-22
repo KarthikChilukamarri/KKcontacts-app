@@ -82,11 +82,7 @@ module.exports.updateContact = function (req, res) {
     });
 }
 
-module.exports.searchContact = function(req, res){
 
-    var query = findOne({"id"})
-
-}
 
 /*
 module.exports.updateContact = function (req, res) {
