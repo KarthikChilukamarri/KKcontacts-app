@@ -31,7 +31,7 @@ module.exports.findById = function(id, callback){
 
 module.exports.saveContact = function(savableContact, callback) {
 
-    console.log(savableContact);
+    //console.log(savableContact);
     var cont = new contact(savableContact);
     cont.save(function(err){
         if(err){
@@ -65,6 +65,28 @@ module.exports.updateContact = function (contactID, updatedContact, callback) {
         callback(null, contact);
     });
 
+}
+
+module.exports.searchContacts1 = function(callback){
+    contact.find({city: "SAN JOSE"},{firstName:1, phone:1, _id:0}, function(err, contacts){
+
+        if(err){
+            callback(err);
+        } else{
+            callback(null, contacts);
+        }
+    });
+}
+
+module.exports.searchContacts2 = function(callback){
+    contact.find({phone: {$regex: /^408/}}, function(err, contacts){
+
+        if(err){
+            callback(err);
+        } else{
+            callback(null, contacts);
+        }
+    });
 }
 
 module.exports.deleteContactByID = function(id, callback){

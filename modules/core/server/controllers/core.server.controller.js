@@ -88,6 +88,38 @@ module.exports.updateContact = function (req, res) {
 
 }
 
+module.exports.searchContacts1 = function(req, res){
+
+    contactService.searchContacts1(function(err, contacts){
+       if(err){
+           res
+               .status(400)
+               .send({message: 'ERROR: Search Failed.'});
+       } else {
+           res
+               .status(200)
+               .json(contacts);
+       }
+
+    });
+}
+
+module.exports.searchContacts2 = function(req, res){
+
+    contactService.searchContacts2(function(err, contacts){
+        if(err){
+            res
+                .status(400)
+                .send({message: 'ERROR: Search Failed.'});
+        } else {
+            res
+                .status(200)
+                .json(contacts);
+        }
+
+    });
+}
+
 
 module.exports.validateContactIdAndForward = function (req, res, next, id){
 
