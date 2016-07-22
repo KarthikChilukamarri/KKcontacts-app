@@ -5,17 +5,21 @@ var express = require('express'),
 
 
 module.exports.init = function(){
+
     var app = express();
 
     // Body Parser middleware integration
     this.initBodyParser(app)
 
     return app;
+
 }
 
 module.exports.initBodyParser = function(app){
+
     // parse application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: false }))
     // parse application/json
     app.use(bodyParser.json())
+
 };

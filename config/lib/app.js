@@ -8,13 +8,16 @@ var path = require('path');
 
 
 module.exports.loadRoutes = function (app) {
+
     var coreRoute =   require(path.join(process.cwd(),'modules/core/server/routes/core.server.routes'));
     coreRoute(app);
+
 }
 
 
 // initialize the mongodb
 module.exports.start = function () {
+
     var self =this;
 
     mongoose.connect(function (db) {
@@ -24,4 +27,5 @@ module.exports.start = function () {
             console.log("Application is running on port : " + config.app.port);
         });
     })
+
 }

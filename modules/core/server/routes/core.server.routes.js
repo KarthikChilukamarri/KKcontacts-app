@@ -3,7 +3,6 @@
 
 module.exports = function (app) {
 
-
     var controller =  require('../controllers/core.server.controller.js');
 
     app
@@ -21,4 +20,5 @@ module.exports = function (app) {
 
     app
         .param('id',controller.validateContactIdAndForward);
+
 }

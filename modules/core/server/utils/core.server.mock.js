@@ -5,15 +5,20 @@ var Chance = require('chance'),
 
 var contacts = generateMockContacts();
 
+
 module.exports.saveContact = function(contact){
+
     var chance = new Chance();
     var ccontact = _.clone(contact);
     ccontact.id = chance.guid();
     contacts.push(ccontact);
     return ccontact;
+
 }
 
+
 module.exports.findContactById = function(id){
+
     var foundContact;
     contacts.some(function(contact, index){
         if(contact.id === id){
@@ -24,25 +29,35 @@ module.exports.findContactById = function(id){
         }
     });
     return foundContact;
+
 }
+
 
 module.exports.getContacts = contacts;
 
+
 module.exports.updateContact = function(index, updatedContact){
+
     contacts[index] = updatedContact;
     return updatedContact;
 }
 
+
 module.exports.getContactById = function(index){
+
     return contacts[index];
 }
 
+
 module.exports.deleteContact = function(index){
+
     contacts.splice(index,1);
     return contacts;
 }
 
+
 function generateMockContacts(){
+
     var chance = new Chance();
     var contacts = [];
 
@@ -59,4 +74,5 @@ function generateMockContacts(){
         contacts.push(contact);
     }
     return contacts;
+
 }

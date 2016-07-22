@@ -6,14 +6,17 @@ var mongoose = require('mongoose'),
 
 
 var validateFieldStrategy = function(property){
+
     return property.length;
 }
 
 var validateEmailStrategy = function(property){
+
     return validator.isEmail(property);
 }
 
 var validateZipStrategy = function(property){
+
     if(validator.isLength(property, {min:6, max:6})){
         validator.isInt(property);
     } else return false;
@@ -83,6 +86,7 @@ var ContactSchema = new Schema({
         validate: [validateFieldStrategy, "City cannot be empty!"]
 
     }
+    
 });
 
 //mongoose.model('Contact', ContactSchema);
