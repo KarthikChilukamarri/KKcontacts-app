@@ -11,11 +11,11 @@ module.exports.getContactById = function (req, res) {
         if(err){
             res
                 .status(400)
-                .send({message: "Error: Internal error while saving data. Please try again later!!"})
+                .send({message: "Error: Internal error while saving data. Please try again later!!"});
             return ;
         }
         res
-            .status(400)
+            .status(200)
             .json(foundContact);
 
     });
@@ -88,7 +88,62 @@ module.exports.updateContact = function (req, res) {
 
 }
 
-module.exports.searchContacts1 = function(req, res){
+
+module.exports.findContactByCity = function(req, res){
+
+    var city = req.params.city;
+    console.log(city);
+    contactService.findContactByCity(city, function (err, contact) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to find contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json(contact);
+        }
+    });
+}
+
+
+module.exports.findContactByNum = function(req, res) {
+
+    var num = req.params.num;
+    contactService.findContactByNum(num, function (err, contact) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to find contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json(contact);
+        }
+    });
+}
+
+
+
+/*module.exports.searchContacts = function(req, res, id){
+
+    var search = req.body,
+        display = req.metadata.id;
+    console.log(search);
+
+    contactService.searchContacts(search, display, function(err, contact){
+
+        if(err){
+            res
+                .status(400)
+                .send({message: 'ERROR: Unable to find the contact(s).'});
+        } else {
+            res
+                .status(200)
+                .json(contact);
+        }
+    });
+
+
+}*/
+
+/*module.exports.searchContacts1 = function(req, res){
 
     contactService.searchContacts1(function(err, contacts){
        if(err){
@@ -118,7 +173,7 @@ module.exports.searchContacts2 = function(req, res){
         }
 
     });
-}
+}*/
 
 
 module.exports.validateContactIdAndForward = function (req, res, next, id){
@@ -129,7 +184,7 @@ module.exports.validateContactIdAndForward = function (req, res, next, id){
         if(err){
             res
                 .status(400)
-                .send({message: "ERROR: Could not find the contact. Please try again later!!"})
+                .send({message: "ERROR: Could not find the contact. Please try again later!!"});
             return ;
 
         }
@@ -139,3 +194,4 @@ module.exports.validateContactIdAndForward = function (req, res, next, id){
     next();
 
 }
+

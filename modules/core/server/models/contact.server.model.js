@@ -34,59 +34,59 @@ var ContactSchema = new Schema({
     firstName: {
         type: String,
         default: '',
-        trim: true,
-        validate: [validateFieldStrategy, 'FirstName cannot be empty!'],
+        trim: true
+        //validate: [validateFieldStrategy, 'FirstName cannot be empty!'],
     },
 
     lastName: {
         type: String,
         default: '',
-        trim: true,
-        validate: [validateFieldStrategy, 'lastName cannot be empty!']
+        trim: true
+        //validate: [validateFieldStrategy, 'lastName cannot be empty!']
     },
 
     email: {
         type: String,
         default: '',
         trim: true,
-        unique: true,
-        lowercase: true,
-        validate: [validateEmailStrategy, 'Please enter valid email id.']
+        //unique: true,
+        lowercase: true
+        //validate: [validateEmailStrategy, 'Please enter valid email id.']
     },
 
     zip: {
 
         type: String,
         default: '',
-        trim: true,
-        validate: [validateZipStrategy, 'lastName cannot be empty!']
+        trim: true
+        //validate: [validateZipStrategy, 'lastName cannot be empty!']
 
     },
 
     address: {
 
         type: String,
-        default: '',
-        validate: [validateFieldStrategy, "Address cannot be empty!"]
+        default: ''
+        //validate: [validateFieldStrategy, "Address cannot be empty!"]
     },
 
     phone: {
         type: String,
         trim: true,
         unique: true,
-        default: '',
-        validate: [validatePhoneStrategy, "Phone number is invalid!"]
+        default: ''
+        //validate: [validatePhoneStrategy, "Phone number is invalid!"]
     },
 
     city: {
         type: String,
         trim: true,
         default: '',
-        uppercase: true,
-        validate: [validateFieldStrategy, "City cannot be empty!"]
+        uppercase: true
+        //validate: [validateFieldStrategy, "City cannot be empty!"]
 
     }
-    
+
 });
 
 //mongoose.model('Contact', ContactSchema);
