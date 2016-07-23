@@ -132,11 +132,15 @@ module.exports.searchContacts2 = function(callback){
 }*/
 
 
-module.exports.findContactByCity = function(city, callback){
+module.exports.searchContactByCity = function(city, callback){
 
-    var newObj,
-        foundContacts = [];
-    contact.find({}).where('city').eq(city).exec(function (err,contacts) {
+    /*var newObj,
+        foundContacts = [];*/
+    contact.find({city: city},{_id:0, firstName:1, phone:1, city:1}, function(err, contacts){
+       if(err) callback(err);
+        else callback(null, contacts);
+    });
+    /*contact.find({}).where('city').eq(city).exec(function (err,contacts) {
         for(var i=0; i< contacts.length; i++) {
             newObj = {firstName: contacts[i].firstName, phone: contacts[i].phone, city: contacts[i].city};
             foundContacts.push(newObj);
@@ -148,17 +152,21 @@ module.exports.findContactByCity = function(city, callback){
 
                 callback(null, foundContacts);
             }
-    });
+    });*/
 }
 
 
-module.exports.findContactByNum = function(num, callback) {
+module.exports.searchContactByNum = function(num, callback) {
 
-    var newObj, mobile = num.substr(0,3),
-        foundContacts =[];
+    var newObj, mobile = num.substr(0,3);
+       // foundContacts =[];
     mobile = mobile.concat('.*');
-    console.log(mobile);
-    contact.find({phone: {$regex: mobile}}).exec(function (err, contacts) {
+    contact.find({phone: {$regex: mobile}}, function(err, contacts){
+        if(err) callback(err);
+        else callback(null, contacts);
+
+    });
+    /*contact.find({phone: {$regex: mobile}}).exec(function (err, contacts) {
         if(err){
             callback(err);
         } else {
@@ -177,7 +185,7 @@ module.exports.findContactByNum = function(num, callback) {
             };
             callback(null,foundContacts);
         }
-    });
+    });*/
 }
 
 module.exports.deleteContactByID = function(id, callback){

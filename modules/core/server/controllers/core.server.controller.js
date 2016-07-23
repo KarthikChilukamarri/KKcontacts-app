@@ -89,11 +89,11 @@ module.exports.updateContact = function (req, res) {
 }
 
 
-module.exports.findContactByCity = function(req, res){
+module.exports.searchContactByCity = function(req, res){
 
     var city = req.params.city;
     console.log(city);
-    contactService.findContactByCity(city, function (err, contact) {
+    contactService.searchContactByCity(city, function (err, contact) {
         if (err) {
             res.status(400)
                 .send({message: "Error:: Unable to find contact. Please try again!!"});
@@ -105,10 +105,10 @@ module.exports.findContactByCity = function(req, res){
 }
 
 
-module.exports.findContactByNum = function(req, res) {
+module.exports.searchContactByNum = function(req, res) {
 
     var num = req.params.num;
-    contactService.findContactByNum(num, function (err, contact) {
+    contactService.searchContactByNum(num, function (err, contact) {
         if (err) {
             res.status(400)
                 .send({message: "Error:: Unable to find contact. Please try again!!"});

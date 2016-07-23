@@ -34,10 +34,10 @@ module.exports = function (app) {
 
     app
         .route('/api/city/:city')
-        .get(controller.findContactByCity);
+        .get(controller.searchContactByCity);
 
     app
         .route('/api/number/:num')
-        .get(controller.findContactByNum);
+        .get(controller.searchContactByNum);
     
 }
