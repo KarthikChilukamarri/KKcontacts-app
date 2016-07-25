@@ -1,7 +1,8 @@
 'use strict';
 
 var mockService = require('../utils/core.server.mock'),
-    contactService = require('../services/contact.server.service');
+    contactService = require('../services/contact.server.service'),
+    mainController = require('./main.server.controller');
 
 module.exports.getContactById = function (req, res) {
 
@@ -120,60 +121,6 @@ module.exports.searchContactByNum = function(req, res) {
 }
 
 
-
-/*module.exports.searchContacts = function(req, res, id){
-
-    var search = req.body,
-        display = req.metadata.id;
-    console.log(search);
-
-    contactService.searchContacts(search, display, function(err, contact){
-
-        if(err){
-            res
-                .status(400)
-                .send({message: 'ERROR: Unable to find the contact(s).'});
-        } else {
-            res
-                .status(200)
-                .json(contact);
-        }
-    });
-
-
-}*/
-
-/*module.exports.searchContacts1 = function(req, res){
-
-    contactService.searchContacts1(function(err, contacts){
-       if(err){
-           res
-               .status(400)
-               .send({message: 'ERROR: Search Failed.'});
-       } else {
-           res
-               .status(200)
-               .json(contacts);
-       }
-
-    });
-}
-
-module.exports.searchContacts2 = function(req, res){
-
-    contactService.searchContacts2(function(err, contacts){
-        if(err){
-            res
-                .status(400)
-                .send({message: 'ERROR: Search Failed.'});
-        } else {
-            res
-                .status(200)
-                .json(contacts);
-        }
-
-    });
-}*/
 
 
 module.exports.validateContactIdAndForward = function (req, res, next, id){

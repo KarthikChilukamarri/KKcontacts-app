@@ -27,5 +27,4 @@ module.exports.start = function () {
             console.log("Application is running on port : " + config.app.port);
         });
     })
-
 }
