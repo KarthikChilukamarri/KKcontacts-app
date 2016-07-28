@@ -25,10 +25,17 @@ module.exports.getContactById = function (req, res) {
 
 module.exports.getContacts = function(req, res) {
 
-        contactService.getContacts(function (contacts) {
-            res
-                .status(200)
-                .json(contacts);
+        contactService.getContacts(function (err, contacts) {
+            if(err){
+                res
+                    .status(400)
+                    .send({message: "Could not get the contacts!"});
+            }
+            else {
+                res
+                    .status(200)
+                    .json(contacts);
+            }
 
 
         });
@@ -120,6 +127,41 @@ module.exports.searchContactByNum = function(req, res) {
     });
 }
 
+module.exports.getTopTen = function(req, res){
+    
+    var param = req.params.parameter;
+    contactService.getTopTen(param, function(err, contacts){
+        
+        if(err) {
+            res
+                .status(400)
+                .send({});
+        }
+        else{
+            res
+                .status(200)
+                .json(contacts);
+        }
+        
+    })
+    
+}
+
+module.exports.populateDatabase = function(req, res, next){
+
+    contactService.populateDatabase(function(err){
+        if(err){
+            res
+                .status(400)
+                .send({message: "ERROR: Could not populate the Database!!"});
+        }
+        else {
+            next();
+;        }
+    });
+
+}
+
 
 
 
@@ -141,4 +183,6 @@ module.exports.validateContactIdAndForward = function (req, res, next, id){
     next();
 
 }
+
+
 

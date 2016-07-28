@@ -14,6 +14,7 @@ module.exports.init = function(){
     // Body Parser middleware integration
     this.initBodyParser(app);
     this.initViewEngine(app);
+    this.initIgnoreStatic(app);
 
     return app;
 
@@ -22,9 +23,9 @@ module.exports.init = function(){
 module.exports.initBodyParser = function(app){
 
     // parse application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.urlencoded({ extended: false }));
     // parse application/json
-    app.use(bodyParser.json())
+    app.use(bodyParser.json());
 
 };
 
@@ -33,4 +34,9 @@ module.exports.initViewEngine = function(app) {
     app.engine('server.view.html', consolidate['swig']);
     app.set('view engine', 'server.view.html');
     app.set('views', path.join(process.cwd(), 'modules/core/server/views'));
+}
+
+module.exports.initIgnoreStatic = function(app){
+    app.use('/public', express.static(path.join(process.cwd(),'public')));
+
 }

@@ -1,16 +1,15 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    contact = mongoose.model('KK');
+    contact = mongoose.model('KK'),
+    Chance = require('chance');
 
 
 module.exports.getContacts = function(callback) {
 
     contact.find({},function (err, contacts) {
-        if(err)
-        callback(err);
-        //console.log(contacts);
-        callback(contacts);
+        if(err) callback(err);
+        else callback(null, contacts);
     });
 
 }
@@ -99,3 +98,63 @@ module.exports.deleteContactByID = function(id, callback){
     });
 
 }
+
+module.exports.getTopTen = function(parameter, callback){
+
+    contact.find({}).limit(10).sort(parameter).exec(function (err,contacts) {
+        if(err){
+            callback(err);
+        }else{
+            console.log(contacts);
+            callback(null,contacts);
+        }
+    });
+
+}
+
+module.exports.populateDb =  function(con, callback) {
+
+    con.forEach(function(element) {
+        var cont = new contact(element);
+        cont.save(function(err){
+            if (err) callback(err);
+            else callback(null);
+        });
+    });
+
+}
+
+module.exports.populateDatabase = function(callback) {
+
+
+    function generateContacts() {
+
+        var chance = new Chance();
+        var contacts = [];
+
+        for (var i = 0; i < 1; i++) {
+            var contact = {};
+            var name = chance.name().split(' ');
+            contact.firstName = name[0];
+            contact.lastName = name[1];
+            contact.zip = chance.zip();
+            contact.email = chance.email();
+            contact.address = chance.address();
+            var fone = chance.phone().replace('(', '').replace(')', '').replace(' ', '-');
+            contact.phone = fone;
+            contact.city = chance.city();
+
+            contacts.push(contact);
+        }
+        return contacts;
+
+    }
+    var contactArray = generateContacts();
+
+    this.populateDb(contactArray, function(err){
+        if (err) callback(err);
+        else callback(null);
+    });
+
+}
+

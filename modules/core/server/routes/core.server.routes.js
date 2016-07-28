@@ -34,5 +34,13 @@ module.exports = function (app) {
         .route('/api/number/:num')
         .get(controller.searchContactByNum);
     
+    app
+        .route('/api/topTen/:parameter')
+        .get(controller.getTopTen);
+    
+    app
+        .route('/api/populate')
+        .get(controller.populateDatabase, controller.getContacts);
+    
     
 }
