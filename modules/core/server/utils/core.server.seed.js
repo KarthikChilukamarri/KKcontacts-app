@@ -27,8 +27,13 @@ module.exports.populateDatabase = function(callback) {
 
         var chance = new Chance();
         var contacts = [];
+        var ArrayUtils = new Array(50);
+        for(var i=0; i<50; i++){
+          ArrayUtils.push(i);
+        };
 
-        for (var i = 0; i < 50; i++) {
+        ArrayUtils.forEach(function(){
+
             var contact = {};
             var name = chance.name().split(' ');
             contact.firstName = name[0];
@@ -41,7 +46,8 @@ module.exports.populateDatabase = function(callback) {
             contact.city = chance.city();
 
             contacts.push(contact);
-        }
+        });
+
         return contacts;
 
     }
@@ -58,38 +64,3 @@ module.exports.populateDatabase = function(callback) {
     });
 
 }
-
-/*
-module.exports.populateDatabase = function(callback) {
-
-
-    function generateContacts() {
-
-        var chance = new Chance();
-        var contacts = [];
-
-        for (var i = 0; i < 1; i++) {
-            var contact = {};
-            var name = chance.name().split(' ');
-            contact.firstName = name[0];
-            contact.lastName = name[1];
-            contact.zip = chance.zip();
-            contact.email = chance.email();
-            contact.address = chance.address();
-            var fone = chance.phone().replace('(', '').replace(')', '').replace(' ', '-');
-            contact.phone = fone;
-            contact.city = chance.city();
-
-            contacts.push(contact);
-        }
-        return contacts;
-
-    }
-    var contactArray = generateContacts();
-
-    this.populateDb(contactArray, function(err){
-        if (err) callback(err);
-        else callback(null);
-    });
-
-}*/
