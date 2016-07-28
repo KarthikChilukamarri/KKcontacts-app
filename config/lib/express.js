@@ -39,4 +39,4 @@ module.exports.initViewEngine = function(app) {
 module.exports.initIgnoreStatic = function(app){
     app.use('/public', express.static(path.join(process.cwd(),'public')));
 
-}
+}   

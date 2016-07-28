@@ -2,7 +2,8 @@
 
 var mockService = require('../utils/core.server.mock'),
     contactService = require('../services/contact.server.service'),
-    mainController = require('./main.server.controller');
+    mainController = require('./main.server.controller'),
+    seed = require('../utils/core.server.seed');
 
 module.exports.getContactById = function (req, res) {
 
@@ -149,7 +150,7 @@ module.exports.getTopTen = function(req, res){
 
 module.exports.populateDatabase = function(req, res, next){
 
-    contactService.populateDatabase(function(err){
+    seed.populateDatabase(function(err){
         if(err){
             res
                 .status(400)
