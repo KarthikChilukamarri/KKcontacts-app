@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
 module.exports.getContacts = function(callback) {
 
-    contact.find({},function (err, contacts) {
+    contact.find({},{__v:0}, function (err, contacts) {
         if(err) callback(err);
         else callback(null, contacts);
     });
@@ -17,7 +17,7 @@ module.exports.getContacts = function(callback) {
 
 module.exports.findById = function(id, callback){
 
-    contact.findOne({'_id': id}, function(err, contacts) {
+    contact.findOne({'_id': id}, {__v:0}, function(err, contacts) {
         if(err) {
             callback(err);
         }
@@ -59,7 +59,7 @@ module.exports.updateContact = function (contactID, updatedContact, callback) {
         }, function(err, contact) {
         if(err) {
             callback(err);
-            return ;
+
         }
         callback(null, contact);
     });

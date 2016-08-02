@@ -19,17 +19,28 @@ module.exports.loadRoutes = function (app) {
 // initialize the mongodb
 module.exports.start = function () {
 
-    var self =this;
+    var self = this;
+    //config.validateEnvironmentVariable();
 
     mongoose.connect(function (db) {
+
         var app = express.init(); // calls the express init function
-        seed.populateDatabase(function(err){
-            if(err) console.log('ERROR');
-            else console.log('SUCCESS');
-        });
+        self.refreshDatabase();
         self.loadRoutes(app);
         app.listen(config.app.port,function () {
             console.log("Application is running on port : " + config.app.port);
         });
-    })
+    });
+}
+
+module.exports.refreshDatabase = function() {
+
+    if(config.db.dropCollection) {
+        seed.populateDatabase(function(err) {
+            if(err) console.log("ERROR");
+            else console.log("SUCCESS");
+        });
+    }
+    else console.log("Cannot refresh the Database in this environment.");
+
 }

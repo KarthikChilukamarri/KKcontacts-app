@@ -1,0 +1,58 @@
+<div class="contacts-form-container" ng-controller="updateCtrl">
+
+    <h3>ENTER THE CONTACT_ID: </h3> <br>
+
+    <form class="bs-example1 bs-example-form1" data-example-id="input-group-sizing">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">ID</span>
+            <input class="form-control" placeholder="ID" aria-describedby="sizing-addon1" ng-model="id">
+        </div>
+        <br>
+        <button type="button" class="btn btn-default1" ng-click="getContact(id)">Get</button>
+    </form>
+
+    <form class="bs-example bs-example-form" data-example-id="input-group-sizing">
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">Primer Nombre</span>
+            <input class="form-control" placeholder="FirstName" aria-describedby="sizing-addon1" ng-model="contact.firstName">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon2">Apellido</span>
+            <input class="form-control" placeholder="LastName" aria-describedby="sizing-addon1" ng-model="contact.lastName">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon3">Código Postal</span>
+            <input class="form-control" placeholder="Zip" aria-describedby="sizing-addon1" ng-model="contact.zip">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon4">Correo Electrónico</span>
+            <input class="form-control" placeholder="Email" aria-describedby="sizing-addon1" ng-model="contact.email">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon5">Direccion</span>
+            <input class="form-control" placeholder="Address" aria-describedby="sizing-addon5" ng-model="contact.address">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon5">Ciudad</span>
+            <input class="form-control" placeholder="City" aria-describedby="sizing-addon5" ng-model="contact.city">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon5">Teléfono</span>
+            <input class="form-control" placeholder="Phone" aria-describedby="sizing-addon5" ng-model="contact.phone">
+        </div>
+        <br>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">ID</span>
+            <input class="form-control" placeholder="ID" aria-describedby="sizing-addon1" ng-model="contact._id">
+        </div>
+        <br>
+        <button type="button" class="btn btn-default" ng-click="updateContact(contact, contact._id)">Update</button>
+    </form>
+</div>

@@ -7,7 +7,10 @@ module.exports = {
         options: {
             user: 'admin',
             pass: 'intersources123'
-        }
+        },
+
+        dropCollection: true
+
     }
 
 };

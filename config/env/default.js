@@ -3,7 +3,7 @@
 module.exports = {
 
     app:{
-        port:8090
+        port:8080
     }
 
 };
