@@ -1,5 +1,8 @@
-<div class="contacts-form-container" ng-controller="saveCtrl">
-    <form class="bs-example bs-example-form" data-example-id="input-group-sizing">
+<div align="center" class="contacts-form-container" ng-controller="saveCtrl">
+
+    <form name="MyForm" class="bs-example bs-example-form" data-example-id="input-group-sizing">
+        <div class="border-class">
+            <br>
         <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1">Primer Nombre</span>
             <input class="form-control" placeholder="FirstName" aria-describedby="sizing-addon1" ng-model="contact.firstName">
@@ -7,7 +10,8 @@
         <br>
         <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon2">Apellido</span>
-            <input class="form-control" placeholder="LastName" aria-describedby="sizing-addon1" ng-model="contact.lastName">
+            <input name="lastName" class="form-control" placeholder="LastName" aria-describedby="sizing-addon1" ng-model="contact.lastName">
+            <span ng-show="lastName.$touched && lastName.$invalid">The name is required.</span>
         </div>
         <br>
         <div class="input-group input-group-lg">
@@ -17,7 +21,10 @@
         <br>
         <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon4">Correo Electrónico</span>
-            <input class="form-control" placeholder="Email" aria-describedby="sizing-addon1" ng-model="contact.email">
+            <input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="sizing-addon1" ng-model="contact.email" required>
+            <span style="color:red" ng-show="MyForm.email.$dirty && MyForm.email.$invalid">
+            <span ng-show="MyForm.email.$error.required">Email is required.</span>
+                <!--<span ng-show="MyForm.contact.email.$error.email">Invalid email address.</span>-->
         </div>
         <br>
         <div class="input-group input-group-lg">
@@ -36,5 +43,7 @@
         </div>
         <br>
         <button type="button" class="btn btn-default" ng-click="saveContact(contact)">Submit</button>
+            <br><p></p>
+    </div>
     </form>
 </div>

@@ -1,13 +1,25 @@
 <div class="grid-contacts-container" ng-controller="ContactsCtrl">
+    <div class="searchBar"><label>Search:</label> <input  type="text" ng-model="searchFilter"></div>
     <table class="table">
         <thead>
         <tr>
-            <th ng-repeat="field in fields" ng-bind="field"></th>
+            <th class="title" ng-repeat="field in fields" ng-bind="field"></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="contact in contacts">
-            <th ng-repeat="(key, value) in contact" ng-bind="value"></th>
+        <tr ng-repeat="contact in contacts | filter:searchFilter" >
+            <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.city" value="{{contact.city}}"> </td>
+            <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.phone" value="{{contact.phone}}"> </td>
+            <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.address" value="{{contact.address}}"></td>
+            <td><input class="borders zip" ng-disabled="! showButton" type="text" ng-model="contact.zip" value="{{contact.zip}}"></td>
+            <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.email" value="{{contact.email}}"></td>
+            <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.lastName" value="{{contact.lastName}}"></td>
+            <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.firstName" value="{{contact.firstName}}"></td>
+            <td class="borders"> <i ng-click="del(contact)" class="glyphicon glyphicon-trash"></i></td>
+            <td class="borders">
+                <i input ng-hide="showButton" ng-click="showButton = ! showButton" ng-model="enable_input" class="glyphicon glyphicon-pencil"></i>
+                <button ng-show="showButton" type="button" class="btn btn-success" ng-click="update(contact)" >save</button>
+            </td>
         </tr>
         </tbody>
     </table>

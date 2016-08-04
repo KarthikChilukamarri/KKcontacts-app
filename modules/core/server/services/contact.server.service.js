@@ -33,13 +33,9 @@ module.exports.saveContact = function(savableContact, callback) {
     //console.log(savableContact);
     var cont = new contact(savableContact);
     cont.save(function(err){
-        if(err){
-            callback(err);
-            return ;
-        }
-        callback(null, cont);
+        if(err) callback(err);
+        else callback(null);
     });
-    console.log('Mongoose Ready State: '+mongoose.connection.readyState);
 
 }
 
@@ -57,12 +53,12 @@ module.exports.updateContact = function (contactID, updatedContact, callback) {
             city: updatedContact.city,
             _id: contactID
         }, function(err, contact) {
-        if(err) {
-            callback(err);
+            if(err) {
+                callback(err);
+            }
+            callback(null, contact);
+        });
 
-        }
-        callback(null, contact);
-    });
 
 }
 
@@ -94,7 +90,12 @@ module.exports.deleteContactByID = function(id, callback){
     contact.findByIdAndRemove(id, function(err){
         if(err){
             callback(err)
-        } else callback(null);
+        } else 
+            contact.find({}, {__v:0}, function(err, contacts){
+                if(err) callback(err);
+                else callback(null, contacts);
+                
+            })
     });
 
 }

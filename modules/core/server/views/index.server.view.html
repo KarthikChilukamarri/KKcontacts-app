@@ -5,11 +5,15 @@
     <title>Contacts Application</title>
     <link href="public/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link>
+    <style>
+        .zip{width:70px;}.borders{border:none;text-align:center}.title{text-align: center}
+        .input-group-addon{ width:185px; }.form-control{width:185px; text-align: center}
+        .border-class{border: groove}.searchBar{float:right;margin:8px}
+    </style>
 </head>
 <body>
-
 <div ng-include ="'modules/core/client/views/navigation.core.tpl.html'"></div>
-
+<!--<div ng-controller="Ctrl2" ng-include ="'modules/core/client/views/login.core.tpl.html'"></div>-->
 <div ui-view></div>
 
 <!--Vendor Libraries-->
@@ -22,6 +26,7 @@
 <!--<script src="modules/core/client/core.client.module.js"></script>-->
 <script src="modules/core/client/routes/core.client.route.js"></script>
 <script src="modules/core/client/controllers/core.client.controller.js"></script>
+<script src="modules/core/client/services/core.client.service.js"></script>
 
 </body>
 </html>

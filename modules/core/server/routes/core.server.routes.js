@@ -20,7 +20,7 @@ module.exports = function (app) {
         .route('/api/contact/:id')
         .put(controller.updateContact)
         .get(controller.getContactById)
-        .delete(controller.deleteContactById, controller.getContacts);
+        .delete(controller.deleteContactById/*, controller.getContacts*/);
 
 
     app

@@ -46,33 +46,37 @@ module.exports.getContacts = function(req, res) {
 module.exports.deleteContactById = function(req, res, next) {
 
     var id = req.metadata.contactId;
-    contactService.deleteContactByID(id, function(err){
+    contactService.deleteContactByID(id, function(err, contacts){
         if(err){
             res
                 .status(400)
                 .send("ERROR: Could not delete the Object");
-            return ;
+            //return ;
+        }
+        else {
+            res
+                .status(200)
+                .json(contacts)
         }
 
     });
-    next();
+    //next();
 
 }
 
 module.exports.createContact = function (req, res) {
 
     var contact = req.body;
-    contactService.saveContact(contact, function (err, contact) {
+    contactService.saveContact(contact, function (err) {
         if (err) {
             res
                 .status(400)
                 .send({message: "Error: Internal error while saving data. Please try again later!!"});
-            return ;
         } else
         {
             res
                 .status(200)
-                .json(contact)
+                .json("Success")
         }
     });
 
@@ -83,7 +87,7 @@ module.exports.updateContact = function (req, res) {
     var updatedContact = req.body,
         ID = req.metadata.contactId;
 
-    contactService.updateContact(ID, updatedContact, function (err, contact) {
+    contactService.updateContact(ID, updatedContact, function (err, contacts) {
         if (err) {
             res
                 .status(400)
@@ -91,7 +95,7 @@ module.exports.updateContact = function (req, res) {
         } else {
             res
                 .status(200)
-                .send(contact);
+                .send(contacts);
         }
     });
 

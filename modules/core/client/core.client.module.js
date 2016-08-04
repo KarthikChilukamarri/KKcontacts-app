@@ -1,3 +1,3 @@
 'use strict';
-ApplicationConfiguration.registerModule('ContactsApp',['ui.router']);
+ApplicationConfiguration.registerModule('ContactsApp',['ui.router', 'httpService']);
 

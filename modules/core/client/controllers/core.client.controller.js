@@ -1,15 +1,66 @@
+
 'use strict';
+
+/*angular.module('ContactsApp')
+    .controller('ContactsCtrl', function($scope, ContactService){
+
+        var contactsPromise = ContactService.getContacts();
+        var successCallback = function(response){
+            $scope.contacts = response;
+            $scope.fields = Object.keys($scope.contacts[0] || []);
+        }
+
+        var failureCallback = function(err){
+            console.log("Error while fetching the Data");
+        }
+
+        contactsPromise
+            .success(successCallback)
+            .error(failureCallback);
+
+    });*/
 var cont;
 var savedContact;
 
-
-angular
+    angular
     .module('ContactsApp')
-    .controller('ContactsCtrl', function($scope, $http){
-        $http.get('/api/contact')
+        .service('httpService', ['$http', function ($http) {
+
+            var urlBase = '/api/contact';
+
+            this.displayData = function () {
+                return $http.get(urlBase);
+            };
+
+            this.saveData = function (contact) {
+                return $http.post(urlBase, contact);
+            };
+
+            this.deleteData = function (contact) {
+                return $http.delete(urlBase+'/'+contact._id);
+            };
+
+            this.updateData = function(contact) {
+                return $http.put(urlBase + '/' +contact._id, contact);
+            };
+
+        }])
+        .controller('mainCtrl', function($scope){
+            $scope.hi = function(){
+                console.log("HI");
+            }
+
+        }).controller('Ctrl1', function($scope){
+
+
+    })
+    .controller('ContactsCtrl', function($scope, httpService, $http){
+
+        httpService.displayData()
             .success(function(data) {
-                cont = data;
-                console.log(data);
+            cont = data;
+            $scope.fields = Object.keys($scope.contactSample[0]) || [];
+            $scope.contacts = cont;
             })
             .error(function(data) {
                 console.log(data);
@@ -17,75 +68,54 @@ angular
 
         $scope.contactSample = [
             {
-                Identificación: "510dc9a7-97d9-5131-9456-f339ac85bfb7",
-                //_v: 0,
                 Ciudad: "Hyderabad",
                 Teléfono : "234-657-9673",
                 Dirección: "1150 Oruoju Grove",
-                Código_Postal: "96363",
+                Zip: "96363",
                 Correo_Electronico: "posawle@si.ac",
                 Apellido: "Arnold",
-                Primer_Nombre: "Ethan"
+                Nombre: "Ethan",
+                Borrar : "xyz",
+                Editar: "abc"
             }
         ];
-
-        $scope.fields = Object.keys($scope.contactSample[0]) || [];
-        $scope.contacts = cont;
-
-    })
-    .controller('saveCtrl', function($scope, $http){
-        $scope.saveContact = function(contact){
-            $http.post('/api/contact', contact)
-                .success(function(data) {
-                    savedContact = data;
-                    console.log(data);
+        $scope.del = function(contact) {
+            httpService.deleteData(contact)
+                .success(function(data){
+                    cont = data;
+                    $scope.contacts = cont;
+                    console.log("Felicidades! Contact Deleted!!");
                 })
-                .error(function(data) {
-                    console.log('Error: ' + data);
+                .error(function(data){
+                    console.log("Couldn't delete the Contact!");
                 });
-
         }
-
-        $scope.fields = savedContact;
-    })
-    .controller('updateCtrl', function($scope, $http){
         
-        $scope.getContact = function(id){
-            $http.get('/api/contact/'+id /*{params:{id: id}, contentType:"application/x-www-form-urlencoded" }*/)
+        $scope.update = function(contact) {
+            this.showButton = false;
+            httpService.updateData(contact)
+                .success(function(data){
+                    console.log("Felicidades! Contact Updated!!");
+                })
+                .error(function(data){
+                    console.log("Couldn't update the Contact!");
+                });
+        }
+    })
+    .controller('saveCtrl', function($scope, httpService, $http){
+
+        $scope.saveContact = function(contact){
+            httpService.saveData(contact)
                 .success(function(data) {
-                    console.log(data);
-                    $scope.contact = data;
-
+                    for(var p in contact) {
+                        if (contact.hasOwnProperty(p))
+                            contact[p] = '';
+                    }
+                    console.log("Felicidades! Contact Saved!!");
                 })
-                .error(function(data){
-                    console.log('Error: '+data);
-                })
-
-        }
-
-        $scope.updateContact = function(contact) {
-            $http.put('/api/contact/'+contact._id, contact)
-                .success(function(data){
-                    console.log(data);
-                })
-                .error(function(data){
-                    console.log(data);
-                })
-
-        }
-
-        
-    })
-    .controller('deleteCtrl', function($scope, $http){
-
-        $scope.deleteContact = function(id){
-
-            $http.delete('/api/contact/'+id)
-                .success(function(data){
-                    console.log(data);
-            })
-                .error(function(data){
-                console.log(data);
-            })
+                .error(function(err) {
+                    console.log('Error:' + err);
+                });
         }
     });
+
