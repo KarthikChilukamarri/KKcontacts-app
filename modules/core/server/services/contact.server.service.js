@@ -16,13 +16,11 @@ module.exports.getContacts = function(callback) {
 
 
 module.exports.findById = function(id, callback){
-
-    contact.findOne({'_id': id}, {__v:0}, function(err, contacts) {
-        if(err) {
-            callback(err);
-        }
-        //console.log("Find by id: "+contacts);
-        callback(null, contacts);
+    console.log(id);
+    contact.findOne({'_id': id}, {__v:0}, function(err, contact) {
+        console.log(contact);
+        if(err) callback(err);
+        else callback(null, contact);
     });
 
 }

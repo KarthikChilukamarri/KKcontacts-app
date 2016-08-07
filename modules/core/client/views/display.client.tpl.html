@@ -3,11 +3,18 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="title" ng-repeat="field in fields" ng-bind="field"></th>
+            <th ng-repeat="field in fields | fieldFilter" ng-bind="field"></th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="contact in contacts | filter:searchFilter" >
+        <tr ng-repeat="contact in contacts">
+            <td ng-repeat="(key, value) in contact | dataFilter" ng-bind="value" ></td>
+            <td><span ng-click="update(contact)" class="glyphicon glyphicon-pencil" aria-hidden="true"></span></td>
+            <td class="borders"> <i ng-click="del(contact)" class="glyphicon glyphicon-trash"></i></td>
+        </tr>
+        <!--<tr ng-repeat="contact in contacts | filter:searchFilter" >
             <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.city" value="{{contact.city}}"> </td>
             <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.phone" value="{{contact.phone}}"> </td>
             <td><input class="borders" ng-disabled="! showButton" type="text" ng-model="contact.address" value="{{contact.address}}"></td>
@@ -20,7 +27,7 @@
                 <i input ng-hide="showButton" ng-click="showButton = ! showButton" ng-model="enable_input" class="glyphicon glyphicon-pencil"></i>
                 <button ng-show="showButton" type="button" class="btn btn-success" ng-click="update(contact)" >save</button>
             </td>
-        </tr>
+        </tr>-->
         </tbody>
     </table>
 </div>

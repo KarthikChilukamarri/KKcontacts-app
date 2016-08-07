@@ -47,4 +47,4 @@ module.exports.initIgnoreStatic = function(app){
 
     //app.use('/modules/core/client/app', express.static(path.join(process.cwd(),'modules/core/client/app')));
 
-}   
+}

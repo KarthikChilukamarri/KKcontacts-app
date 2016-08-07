@@ -7,18 +7,20 @@ var mockService = require('../utils/core.server.mock'),
 
 module.exports.getContactById = function (req, res) {
 
-    var id = req.metadata.contactId;
-    //console.log("Get contact by id: "+id);
+    var id = req.params.id;
+    console.log("Get contact by id: "+id);
     contactService.findById(id, function(err, foundContact){
         if(err){
             res
                 .status(400)
                 .send({message: "Error: Internal error while saving data. Please try again later!!"});
-            return ;
         }
-        res
-            .status(200)
-            .json(foundContact);
+        else {
+            console.log(foundContact);
+            res
+                .status(200)
+                .json(foundContact);
+        }
 
     });
 
@@ -166,7 +168,6 @@ module.exports.populateDatabase = function(req, res, next){
     });
 
 }
-
 
 
 

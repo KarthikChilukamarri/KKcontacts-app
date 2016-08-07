@@ -4,7 +4,8 @@
 module.exports = function (app) {
 
     var controller =  require('../controllers/core.server.controller.js'),
-        mainController = require('../controllers/main.server.controller.js');
+        mainController = require('../controllers/main.server.controller.js'),
+        passport = require('passport');
 
     app
         .route('/')
@@ -23,8 +24,8 @@ module.exports = function (app) {
         .delete(controller.deleteContactById/*, controller.getContacts*/);
 
 
-    app
-        .param('id',controller.validateContactIdAndForward);
+    /*app
+        .param('id',controller.validateContactIdAndForward);*/
 
     app
         .route('/api/city/:city')

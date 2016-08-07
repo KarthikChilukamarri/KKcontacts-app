@@ -25,6 +25,7 @@ module.exports.start = function () {
     mongoose.connect(function (db) {
 
         var app = express.init(); // calls the express init function
+        console.log(app.passport);
         self.refreshDatabase();
         self.loadRoutes(app);
         app.listen(config.app.port,function () {

@@ -19,12 +19,38 @@
             .error(failureCallback);
 
     });*/
-var cont;
-var savedContact;
+    var cont;
+    var savedContact;
 
     angular
     .module('ContactsApp')
-        .service('httpService', ['$http', function ($http) {
+        .filter('dataFilter', function() {
+            return function (contact) {
+                var cont = {};
+                for(var key in contact){
+                    if(key != '_id')
+                        cont[key] = contact[key];
+                }
+                return cont;
+            }
+        })
+        .filter('fieldFilter', function() {
+            return function (fields) {
+                var cont = {};
+                for(var key in fields) {
+                    if (fields[key] != '_id') {
+                    var reg = fields[key]
+                        // insert a space before all caps
+                            .replace(/([A-Z])/g, ' $1')
+                            // uppercase the first character
+                            .replace(/^./, function(str){ return str.toUpperCase(); })
+                    cont[key] = reg;
+                    }
+                }
+                return cont;
+            }
+        })
+        /*.service('httpService', ['$http', function ($http) {
 
             var urlBase = '/api/contact';
 
@@ -45,40 +71,19 @@ var savedContact;
             };
 
         }])
-        .controller('mainCtrl', function($scope){
-            $scope.hi = function(){
-                console.log("HI");
-            }
-
-        }).controller('Ctrl1', function($scope){
-
-
-    })
-    .controller('ContactsCtrl', function($scope, httpService, $http){
+*/
+        
+    .controller('ContactsCtrl', ['$scope', 'httpService', '$state', function($scope, httpService, $state){
 
         httpService.displayData()
             .success(function(data) {
-            cont = data;
-            $scope.fields = Object.keys($scope.contactSample[0]) || [];
-            $scope.contacts = cont;
+                $scope.contacts = data;
+                $scope.fields = Object.keys($scope.contacts[0]) || [];
             })
             .error(function(data) {
                 console.log(data);
             });
 
-        $scope.contactSample = [
-            {
-                Ciudad: "Hyderabad",
-                Teléfono : "234-657-9673",
-                Dirección: "1150 Oruoju Grove",
-                Zip: "96363",
-                Correo_Electronico: "posawle@si.ac",
-                Apellido: "Arnold",
-                Nombre: "Ethan",
-                Borrar : "xyz",
-                Editar: "abc"
-            }
-        ];
         $scope.del = function(contact) {
             httpService.deleteData(contact)
                 .success(function(data){
@@ -92,16 +97,15 @@ var savedContact;
         }
         
         $scope.update = function(contact) {
-            this.showButton = false;
-            httpService.updateData(contact)
-                .success(function(data){
-                    console.log("Felicidades! Contact Updated!!");
-                })
-                .error(function(data){
-                    console.log("Couldn't update the Contact!");
-                });
+            console.log("Update Funtion"+contact._id);
+            /*var result = {
+                contactId : function($stateParams) {
+                    return $stateParams.contactId
+                }
+                };*/
+            $state.go('edit', contact._id);
         }
-    })
+    }])
     .controller('saveCtrl', function($scope, httpService, $http){
 
         $scope.saveContact = function(contact){
@@ -117,5 +121,27 @@ var savedContact;
                     console.log('Error:' + err);
                 });
         }
-    });
+    })
+        .controller('editCtrl', ['$scope', 'httpService', function($scope, httpService, id){
+            console.log(contactId);
+            httpService.getData(contactId)
+                .success(function(data){
+                    console.log(data);
+                    $scope.contact = data;
+                }).error(function(err){
+                console.log("Error while fetching Data!!");
+            });
+
+            $scope.saveContact = function(contact) {
+                httpService.updateData(contact)
+                    .success(function(data){
+                        console.log(data);
+                    }).error(function(err){
+                    console.log("Error while fetching Data!");
+                })
+
+            }
+
+        }]);
+
 
