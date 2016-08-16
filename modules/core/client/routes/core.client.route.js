@@ -25,6 +25,7 @@ angular
                             return $stateParams.contactId
                         }
                     },
+
                     controller:'editCtrl'
 
                 });
