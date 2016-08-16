@@ -87,7 +87,7 @@ module.exports.createContact = function (req, res) {
 module.exports.updateContact = function (req, res) {
 
     var updatedContact = req.body,
-        ID = req.metadata.contactId;
+        ID = req.params.id;
 
     contactService.updateContact(ID, updatedContact, function (err, contacts) {
         if (err) {

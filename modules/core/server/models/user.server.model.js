@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
-var UserSchema = mongoose.Schema({
+var UserSchema = new Schema({
     username: {
         type: String,
         index:true
@@ -20,4 +20,4 @@ var UserSchema = mongoose.Schema({
     }
 });
 
-mongoose.model('KK-Users', UserSchema);
+mongoose.model('KKUsers', UserSchema);

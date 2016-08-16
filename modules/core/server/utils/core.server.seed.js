@@ -60,7 +60,6 @@ module.exports.populateDatabase = function(callback) {
 
     this.populateDb(contactArray, function(err){
         if (err) callback(err);
-        else callback(null);
+        else return;
     });
-
 }

@@ -37,6 +37,7 @@
     "passport-local": "*"
   },
   "devDependencies": {
-    "chance": "^1.0.3"
+    "chance": "^1.0.3",
+    "grunt": "^1.0.1"
   }
 }

@@ -5,7 +5,8 @@
 var config = require('../config'),
     mongoose = require('mongoose'),
     path = require('path'),
-    user = require(path.join(process.cwd(), 'modules/core/server/models/contact.server.model'));
+    user = require(path.join(process.cwd(), 'modules/core/server/models/contact.server.model')),
+    users = require(path.join(process.cwd(), 'modules/core/server/models/user.server.model'));
 
 module.exports.connect = function(callback){
 

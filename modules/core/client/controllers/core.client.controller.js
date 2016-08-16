@@ -50,29 +50,6 @@
                 return cont;
             }
         })
-        /*.service('httpService', ['$http', function ($http) {
-
-            var urlBase = '/api/contact';
-
-            this.displayData = function () {
-                return $http.get(urlBase);
-            };
-
-            this.saveData = function (contact) {
-                return $http.post(urlBase, contact);
-            };
-
-            this.deleteData = function (contact) {
-                return $http.delete(urlBase+'/'+contact._id);
-            };
-
-            this.updateData = function(contact) {
-                return $http.put(urlBase + '/' +contact._id, contact);
-            };
-
-        }])
-*/
-        
     .controller('ContactsCtrl', ['$scope', 'httpService', '$state', function($scope, httpService, $state){
 
         httpService.displayData()
@@ -97,13 +74,7 @@
         }
         
         $scope.update = function(contact) {
-            console.log("Update Funtion"+contact._id);
-            /*var result = {
-                contactId : function($stateParams) {
-                    return $stateParams.contactId
-                }
-                };*/
-            $state.go('edit', contact._id);
+            $state.go('edit', {contactId: contact._id});
         }
     }])
     .controller('saveCtrl', function($scope, httpService, $http){
@@ -122,11 +93,10 @@
                 });
         }
     })
-        .controller('editCtrl', ['$scope', 'httpService', function($scope, httpService, id){
-            console.log(contactId);
+        .controller('editCtrl', ['$scope', 'httpService', '$stateParams', function($scope, httpService, $stateParams){
+            var contactId = $stateParams.contactId;
             httpService.getData(contactId)
                 .success(function(data){
-                    console.log(data);
                     $scope.contact = data;
                 }).error(function(err){
                 console.log("Error while fetching Data!!");
@@ -135,7 +105,11 @@
             $scope.saveContact = function(contact) {
                 httpService.updateData(contact)
                     .success(function(data){
-                        console.log(data);
+                        for(var p in contact) {
+                            if (contact.hasOwnProperty(p))
+                                contact[p] = '';
+                        }
+                        console.log("Felicidades! Contact Updated!!");
                     }).error(function(err){
                     console.log("Error while fetching Data!");
                 })

@@ -20,12 +20,12 @@ angular
                 .state('edit', {
                     url:'/edit/:contactId',
                     templateUrl: 'modules/core/client/views/edit.client.tpl.html',
-                    controller:'editCtrl',
                     resolve: {
                         contactId : function($stateParams) {
                             return $stateParams.contactId
                         }
-                    }
+                    },
+                    controller:'editCtrl'
 
                 });
         });

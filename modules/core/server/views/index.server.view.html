@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Contacts Application</title>
     <link href="public/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="modules/core/client/css/login.css" rel="stylesheet">
     <link>
     <style>
         .zip{width:70px;}.borders{border:none;text-align:center}.title{text-align: center}
@@ -13,8 +14,12 @@
 </head>
 <body>
 <div ng-include ="'modules/core/client/views/navigation.core.tpl.html'"></div>
+<!--<div ng-include ="'modules/core/client/views/login.core.tpl.html'"></div>-->
 <!--<div ng-controller="Ctrl2" ng-include ="'modules/core/client/views/login.core.tpl.html'"></div>-->
 <div ui-view></div>
+
+<!--Custom Directive:-->
+<!--<Contact-form></Contact-form>-->
 
 <!--Vendor Libraries-->
 <script src="public/lib/angular/angular.min.js"></script>
@@ -27,6 +32,8 @@
 <script src="modules/core/client/routes/core.client.route.js"></script>
 <script src="modules/core/client/controllers/core.client.controller.js"></script>
 <script src="modules/core/client/services/core.client.service.js"></script>
+<script src = "modules/core/client/filters/filters.js"></script>
+<!--<script src = 'modules/core/client/directives/core.client.directive.js'></script>-->
 
 </body>
 </html>
