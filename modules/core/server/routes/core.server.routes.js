@@ -9,6 +9,14 @@ module.exports = function (app) {
         passport = require('passport');
 
     app
+        .route('/api/login')
+        .post(userController.compareUser);
+    
+    app
+        .route('/api/logout')
+        .get(userController.logout);
+    
+    app
         .route('/')
         .get(mainController.index);
 

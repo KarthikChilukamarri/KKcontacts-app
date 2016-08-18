@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     user = mongoose.model('KKUsers'),
-    Chance = require('chance');
+    Chance = require('chance'),
+    mainServer = require('../controllers/main.server.controller');
 
 
 module.exports.getUsers = function(callback) {
@@ -72,5 +73,21 @@ module.exports.deleteUserByID = function(id, callback){
 
 }
 
-
+module.exports.compareUser = function(userInfo, callback){
+    var uname = userInfo.uname,
+        pass = userInfo.pass;
+    console.log(uname+" "+pass);
+    user.findOne({$and: [ {'username': uname}, {'password': pass} ]}, function(err, data){
+        if(err)
+            callback(err);
+        else {
+            if(data==null)
+            callback("error");
+            else {
+                
+                callback(null, data);
+            }
+        }
+    });
+}
 

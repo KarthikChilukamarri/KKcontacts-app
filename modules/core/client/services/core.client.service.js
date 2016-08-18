@@ -43,5 +43,8 @@ angular.
             this.updateData = function(contact) {
                 return $http.put(urlBase + '/' +contact._id, contact);
             };
+            this.logout = function(){
+                return $http.get('/api/logout');
+            };
 
     }]);

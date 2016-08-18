@@ -7,6 +7,7 @@ var express = require('express'),
     path = require('path'),
     config = require('../config');
 
+var session = require('express-session');
 
 module.exports.init = function(){
 
@@ -27,6 +28,9 @@ module.exports.initBodyParser = function(app){
     app.use(bodyParser.urlencoded({ extended: false }));
     // parse application/json
     app.use(bodyParser.json());
+
+    app.use(session({secret: 'ssshhhhh'}));
+    
 
 };
 

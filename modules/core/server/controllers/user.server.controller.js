@@ -8,6 +8,8 @@ var mockService = require('../utils/core.server.mock'),
     mainController = require('./main.server.controller'),
     userService = require('../services/user.server.service');
 
+
+
 module.exports.getUserById = function (req, res) {
 
     var id = req.metadata.userId;
@@ -43,7 +45,6 @@ module.exports.getUsers = function(req, res) {
                 .json(contacts);
         }
 
-
     });
 
 }
@@ -66,8 +67,37 @@ module.exports.deleteUserById = function(req, res, next) {
 
     });
     //next();
+}
+
+module.exports.compareUser = function(req, res){
+    var user = req.body;
+    console.log(user);
+    userService.compareUser(user, function(err, data){
+        if(err == "error"){
+            res
+                .status(400)
+                .send({message: "Error: Comparing the data!"});
+        }
+        else {
+            req.session.userId = data._id;
+            res
+                .status(200)
+                .json(data);
+        }
+    })
+}
+
+module.exports.logout = function(req, res){
+    console.log(req.session.userId);
+    req.session.userId = null;
+    console.log(req.session.userId);
+
+    res
+        .status(200)
+        .send({message: "Success"});
 
 }
+
 
 module.exports.createUser = function (req, res) {
 

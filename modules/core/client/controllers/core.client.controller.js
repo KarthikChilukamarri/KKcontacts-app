@@ -77,7 +77,7 @@
             $state.go('edit', {contactId: contact._id});
         }
     }])
-    .controller('saveCtrl', function($scope, httpService, $http){
+    .controller('saveCtrl', ['$scope','$state', 'httpService', function($scope, $state, httpService){
 
         $scope.saveContact = function(contact){
             httpService.saveData(contact)
@@ -87,13 +87,14 @@
                             contact[p] = '';
                     }
                     console.log("Felicidades! Contact Saved!!");
+                    $state.go('display');
                 })
                 .error(function(err) {
                     console.log('Error:' + err);
-                });
-        }
-    })
-        .controller('editCtrl', ['$scope', 'httpService', '$stateParams', function($scope, httpService, $stateParams){
+                }
+            )}
+    }])
+        .controller('editCtrl', ['$scope', 'httpService', '$stateParams', '$state', function($scope, httpService, $stateParams, $state){
             var contactId = $stateParams.contactId;
             httpService.getData(contactId)
                 .success(function(data){
@@ -110,11 +111,24 @@
                                 contact[p] = '';
                         }
                         console.log("Felicidades! Contact Updated!!");
+                        $state.go('display');
                     }).error(function(err){
                     console.log("Error while fetching Data!");
                 })
 
             }
+
+        }])
+        .controller('logoutCtrl', ['$scope', 'login', 'httpService', '$state', function($scope, login, httpService, $state){
+
+            httpService.logout()
+                .success(function(data){
+                console.log(data);
+                    $state.go('loghome');
+            })
+                .error(function(err){
+                    console.log(err);
+                })
 
         }]);
 

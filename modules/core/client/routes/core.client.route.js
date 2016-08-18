@@ -28,5 +28,10 @@ angular
 
                     controller:'editCtrl'
 
-                });
+                })
+                .state('logout', {
+                    url: '/logout',
+                    template: 'Logout',
+                    controller: 'logoutCtrl'
+                })
         });
