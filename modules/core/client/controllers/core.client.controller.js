@@ -88,6 +88,7 @@
                     }
                     console.log("Felicidades! Contact Saved!!");
                     $state.go('display');
+                    
                 })
                 .error(function(err) {
                     console.log('Error:' + err);
